@@ -26,7 +26,7 @@ public class BlockchainController {
 
     private static Logger log = Logger.getLogger(BlockchainUIController.class.getName());
 
-    @GetMapping(value = "/addsolution")
+    @GetMapping(value = "/practic0/addsolution")
     public void addsolution(HttpServletRequest request, HttpServletResponse response,
                                @RequestParam(value = "solution", required = false) String solution) {
 

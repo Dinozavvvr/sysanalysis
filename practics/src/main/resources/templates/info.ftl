@@ -40,8 +40,8 @@
 
 <ol>
     <li>
-        Для выбора правила отбора отправить GET запрос на http://194.67.67.199/sa с параметром rule<br>
-        Пример из области математики или программирования: http://194.67.67.199/dataanalysis?rule={"name":"LastName FirstName",
+        Для выбора правила отбора отправить GET запрос на http://89.108.115.118/sa/practic0/addsolution с параметром solution<br>
+        Пример из области математики или программирования: http://89.108.115.118/sa/practic0/addsolution?solution{"name":"LastName FirstName",
         "group":"group number","objects":"Множество квадратных матриц n-ого порядка",
         "morphisms":"Множество квадратных матриц n-ого порядка таких, что f:A->B, f=A-B, где А и B - объекты",
         "composition":"если f:A->B, g:B->C, то f*g:A->C, f*g=A-C", "id":"нулевая матрица n-ого порядка"}

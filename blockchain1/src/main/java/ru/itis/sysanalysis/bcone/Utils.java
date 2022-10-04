@@ -13,7 +13,7 @@ public class Utils {
 
     public static final String DIGEST_ALGORITHM = "SHA-256";
     public static final String KEY_ALGORITHM = "RSA";
-    public static final String SIGN_ALGORITHM = "SHA256withRSAandMGF1";
+    public static final String SIGN_ALGORITHM = "SHA256withRSA";
 
     static {
         Security.addProvider(new BouncyCastleProvider());

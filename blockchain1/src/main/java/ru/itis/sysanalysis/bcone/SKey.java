@@ -15,7 +15,7 @@ public class SKey {
         //Security.addProvider(new BouncyCastleProvider());
 
         KeyPairGenerator rsa = null;
-        try (Writer publicKeyWriter = new FileWriter(new File("publik.key"));
+        try (Writer publicKeyWriter = new FileWriter(new File("public.key"));
              Writer privateKeyWriter = new FileWriter(new File("private.key"))) {
             rsa = KeyPairGenerator.getInstance("RSA");
             rsa.initialize(1024,new SecureRandom());

@@ -24,7 +24,7 @@ public class TestClient {
     /* алгоритм ключа сервиса */
     public static final String KEY_ALGORITHM = "RSA";
     /* алгоритм подписи, формируемой сервисом */
-    public static final String SIGN_ALGORITHM = "SHA256withRSAandMGF1";
+    public static final String SIGN_ALGORITHM = "SHA256withRSA";
 
 
     public static void main(String[] args) {
@@ -39,7 +39,7 @@ public class TestClient {
      */
     public static void readPublicKey() {
         try {
-            URL url = new URL("http://188.93.211.195/public");
+            URL url = new URL("http://89.108.115.118/ts/public");
 
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -67,7 +67,7 @@ public class TestClient {
      */
     public static void readAndVerifyTimeStamp() {
         try {
-            URL url = new URL("http://188.93.211.195/ts?digest=" + digest);
+            URL url = new URL("http://89.108.115.118/ts?digest=" + digest);
 
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -93,32 +93,6 @@ public class TestClient {
 
                 /* Верификация подписи signHexStr, наложенной сервисом на данные (метка времени + хеш)  */
                 System.out.println(verify(publicKey, data, signHexStr));
-            }
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Отправка блока
-    public static void sendBlock(BlockModel blockModel) {
-        try {
-            URL url = new URL("http://188.93.211.195/newblock?block=");
-
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-            con.setRequestMethod("GET");
-
-            int rcode = con.getResponseCode();
-
-            if (rcode == 200) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                publicKey = reader.readLine();
-
-                System.out.println(publicKey);
             }
 
         } catch (MalformedURLException e) {

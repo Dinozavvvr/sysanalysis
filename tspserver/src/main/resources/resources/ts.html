@@ -12,8 +12,7 @@
 <body>
 <h2>Сервис наложения метки времени на хеш</h2>
 <p>Пример GET запроса:</p>
-<p><a href='http://188.93.211.195/ts?digest=30820277020100300d06092a864886f70d010101050004820261302025'>
-http://188.93.211.195/ts?digest=30820277020100300d06092a864886f70d010101050004820261302025</a>
+<p><a href='/ts?digest=30820277020100300d06092a864886f70d010101050004820261302025'>http://89.108.115.118/ts?digest=30820277020100300d06092a864886f70d010101050004820261302025</a>
 <p>Хеш передаётся через параметр <span class="fnt">digest</span>. Хеш записывается как HEX строка</p>
 <p>
 Возвращается JSON объект:
@@ -36,10 +35,14 @@ http://188.93.211.195/ts?digest=30820277020100300d06092a864886f70d01010105000482
 <p> <span class="fnt">("2021-10-16T06:51:32.10+03").getByteArray <span style="font-size: 120%">&#8746;</span> digest.asByteArray &#10230; signature</span>
 <br>
 <p>Алгоритм ключа: RSA
-<p>Алгоритм подписи: SHA256withRSAandMGF1
+<p>Алгоритм подписи: SHA256withRSA
 <p>Открытая часть ключа public key:
-<p><span class="fnt">30819f300d06092a864886f70d010101050003818d0030818902818100a811365d2f3642952751029edf87c8fa2aeb6e0feafcf800190a7dd2cf750c63262f6abd8ef52b251c0e10291d5e2f7e6682de1aae1d64d4f9b242050f898744ca300a44c4d8fc8af0e7a1c7fd9b606d7bde304b29bec01fbef554df6ba1b7b1ec355e1ff68bd37f3d40fb27d1aa233fe3dd6b63f7241e734739851ce8c590f70203010001</span></p>
-<p>возвращается сервисом как строка по запросу <a href='http://188.93.211.195/public'>http://188.93.211.195/public</a>
+<p>HEX формат:</p>
+<p><span class="fnt">30819f300d06092a864886f70d010101050003818d0030818902818100a811365d2f3642952751029edf87c8f ... </span></p>
+<p>возвращается сервисом как строка по запросу <a href='/ts/public'>http://89.108.115.118/ts/public</a>
+<p>Base64 формат:</p>
+<p><span class="fnt">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCoETZdLzZClSdRAp7fh8j6KutuD+r8+AAZCn3Sz3UMYyYvar2O9S ... </span></p>
+<p>возвращается сервисом как строка по запросу <a href='/ts/public64'>http://89.108.115.118/ts/public64</a></p>
 <br>
 <p>
     Исходные коды сервиса и тестовые клиенты: <a href="https://github.com/ksenikeev/sysanalysis">GitHub репозиторий</a>
