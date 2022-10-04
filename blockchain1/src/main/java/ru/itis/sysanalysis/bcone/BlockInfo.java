@@ -1,11 +1,21 @@
 package ru.itis.sysanalysis.bcone;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class BlockInfo {
+/**
+ * структура элемента блокчейна
+ * - id
+ * - data: массив данных
+ * - prevHash - хешкод предыдущего блока
+ * - sign - подпись блока
+ * - signData - подпись данных
+ */
+public class BlockInfo implements Serializable {
 
-    private int blockNum;
+    private Date createdAt;
 
     private List<String> data = new ArrayList<>();
 
@@ -13,18 +23,18 @@ public class BlockInfo {
 
     private byte[] sign;
 
-    private byte[] signBlock;
+    private byte[] signData;
 
-    public BlockInfo(int blockNum) {
-        this.blockNum = blockNum;
+    public BlockInfo(Date blockNum) {
+        this.createdAt = blockNum;
     }
 
-    public int getBlockNum() {
-        return blockNum;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setBlockNum(int blockNum) {
-        this.blockNum = blockNum;
+    public void setCreatedAt(Date blockNum) {
+        this.createdAt = blockNum;
     }
 
     public List<String> getData() {
@@ -49,5 +59,13 @@ public class BlockInfo {
 
     public void setSign(byte[] sign) {
         this.sign = sign;
+    }
+
+    public byte[] getSignData() {
+        return signData;
+    }
+
+    public void setSignData(byte[] signData) {
+        this.signData = signData;
     }
 }

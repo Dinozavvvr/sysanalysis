@@ -10,13 +10,12 @@ public class SKey {
 
     public static void main(String[] args) {
 
-//        System.out.println(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SX").format(new Date()));
+        // блок кода который генерирует нам пару public/private ключей
 
-        //Security.addProvider(new BouncyCastleProvider());
+        KeyPairGenerator rsa;
+        try (Writer publicKeyWriter = new FileWriter("public.key");
+             Writer privateKeyWriter = new FileWriter("private.key")) {
 
-        KeyPairGenerator rsa = null;
-        try (Writer publicKeyWriter = new FileWriter(new File("public.key"));
-             Writer privateKeyWriter = new FileWriter(new File("private.key"))) {
             rsa = KeyPairGenerator.getInstance("RSA");
             rsa.initialize(1024,new SecureRandom());
             KeyPair keyPair = rsa.generateKeyPair();
@@ -24,12 +23,11 @@ public class SKey {
             PrivateKey privateKey = keyPair.getPrivate();
             PublicKey publicKey = keyPair.getPublic();
 
-
-
             privateKeyWriter.write(new String(Hex.encode(privateKey.getEncoded())));
             publicKeyWriter.write(new String(Hex.encode(publicKey.getEncoded())));
+
        } catch (Exception e) {
             e.printStackTrace();
-        }
+       }
     }
 }

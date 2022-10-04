@@ -2,7 +2,9 @@ package ru.itis.sysanalysis.bcone;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
+
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.*;
@@ -19,20 +21,19 @@ public class Utils {
         Security.addProvider(new BouncyCastleProvider());
     }
 
-    public static byte[] getHash(BlockInfo blockInfo) throws NoSuchAlgorithmException, UnsupportedEncodingException, NoSuchProviderException {
+    public static byte[] getHash(BlockInfo blockInfo) throws NoSuchAlgorithmException, NoSuchProviderException {
 
-        String info = "";
+        StringBuilder info = new StringBuilder();
         for (String s : blockInfo.getData()) {
-            info = info + s;
+            info.append(s);
         }
 
-        MessageDigest digest = MessageDigest.getInstance(DIGEST_ALGORITHM,"BC");
+        MessageDigest digest = MessageDigest.getInstance(DIGEST_ALGORITHM, "BC");
 
-        //System.out.println(digest.getProvider());
-
-        byte[] result = digest.digest(
-                concat(blockInfo.getPrevHash(),info.getBytes("UTF-8")));
-        return result;
+        return digest.digest(
+                concat(blockInfo.getPrevHash(),
+                        info.toString().getBytes(StandardCharsets.UTF_8))
+        );
     }
 
     public static byte[] concat(byte[] a, byte[] b) {
@@ -48,30 +49,28 @@ public class Utils {
 
     public static KeyPair loadKeys() throws Exception {
 
-        byte[] publicKeyHex = Files.readAllBytes(Paths.get("publik.key"));
+        byte[] publicKeyHex = Files.readAllBytes(Paths.get("public.key"));
         byte[] privateKeyHex = Files.readAllBytes(Paths.get("private.key"));
 
-        PublicKey publicKey = convertArrayToPublicKey(Hex.decode(publicKeyHex),KEY_ALGORITHM);
-        PrivateKey privateKey = convertArrayToPrivateKey(Hex.decode(privateKeyHex),KEY_ALGORITHM);
+        PublicKey publicKey = convertArrayToPublicKey(Hex.decode(publicKeyHex), KEY_ALGORITHM);
+        PrivateKey privateKey = convertArrayToPrivateKey(Hex.decode(privateKeyHex), KEY_ALGORITHM);
 
-        KeyPair keyPair = new KeyPair(publicKey, privateKey);
-        return keyPair;
+        return new KeyPair(publicKey, privateKey);
     }
 
 
-    public static PublicKey convertArrayToPublicKey(byte encoded[], String algorithm) throws Exception {
+    public static PublicKey convertArrayToPublicKey(byte[] encoded, String algorithm) throws Exception {
         X509EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(encoded);
         KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
-        PublicKey pubKey = keyFactory.generatePublic(pubKeySpec);
 
-        return pubKey;
+        return keyFactory.generatePublic(pubKeySpec);
     }
 
-    public static PrivateKey convertArrayToPrivateKey(byte encoded[], String algorithm) throws Exception {
+    public static PrivateKey convertArrayToPrivateKey(byte[] encoded, String algorithm) throws Exception {
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encoded);
         KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
-        PrivateKey priKey = keyFactory.generatePrivate(keySpec);
-        return priKey;
+
+        return keyFactory.generatePrivate(keySpec);
     }
 
     public static byte[] generateRSAPSSSignature(PrivateKey privateKey, byte[] input)
