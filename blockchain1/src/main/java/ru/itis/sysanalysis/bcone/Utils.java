@@ -3,7 +3,6 @@ package ru.itis.sysanalysis.bcone;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
 
-import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -32,18 +31,20 @@ public class Utils {
 
         return digest.digest(
                 concat(blockInfo.getPrevHash(),
-                        info.toString().getBytes(StandardCharsets.UTF_8))
+                        info.toString().getBytes(StandardCharsets.UTF_8), blockInfo.getSignData())
         );
     }
 
-    public static byte[] concat(byte[] a, byte[] b) {
+    public static byte[] concat(byte[] a, byte[] b, byte[] c) {
         if (a == null) return b;
         if (b == null) return a;
         int len_a = a.length;
         int len_b = b.length;
-        byte[] C = new byte[len_a + len_b];
+        int len_c = c.length;
+        byte[] C = new byte[len_a + len_b + len_c];
         System.arraycopy(a, 0, C, 0, len_a);
         System.arraycopy(b, 0, C, len_a, len_b);
+        System.arraycopy(c, 0, C, len_a + len_b, len_c);
         return C;
     }
 
